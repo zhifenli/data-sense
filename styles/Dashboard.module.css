@@ -1,0 +1,12 @@
+/* Dashboard.module.css*/
+
+.dataBody {
+  padding: 20px;
+  margin: 20px;
+}
+
+@media (min-width: 576px) {
+  .gridItem {
+    margin: 10px;
+  }
+}

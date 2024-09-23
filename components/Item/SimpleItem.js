@@ -1,11 +1,11 @@
-export default function SimpleItem({ title, icon, children }) {
+export default function SimpleItem({ className, title, icon, children }) {
   return (
     <li
-      className="p-2 m-1"
+      className={`p-2 m-1 ${className ?? ""}`}
       style={{
         cursor: "pointer",
         border: "1px solid grey",
-        borderRadius: 5,
+        borderRadius: 9,
         listStyle: "none",
       }}
     >

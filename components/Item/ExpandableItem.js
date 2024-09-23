@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "@fortawesome/fontawesome-free/css/all.min.css"; // Import Font Awesome CSS
 
 export default function ExpandableItem({ title, children }) {
   const [expanded, setExpanded] = useState(false);
@@ -9,14 +10,20 @@ export default function ExpandableItem({ title, children }) {
       style={{
         cursor: "pointer",
         border: "1px solid grey",
-        borderRadius: 5,
+        borderRadius: 9,
         listStyle: "none",
       }}
       onClick={() => setExpanded(!expanded)}
     >
       <h3 style={{ display: "flex", justifyContent: "space-between" }}>
         <span>{title}</span>
-        <span>{expanded ? "-" : "+"}</span>
+        <span>
+          {expanded ? (
+            <i class="fa-solid fa-minus"></i>
+          ) : (
+            <i class="fa-solid fa-plus"></i>
+          )}
+        </span>
       </h3>
       {expanded ? children : null}
     </li>

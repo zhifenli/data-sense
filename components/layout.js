@@ -11,32 +11,58 @@ const Layout = ({ children }) => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    // open ws to server.
-    // on message event, get and set realtimeData
+    // Connect to the WebSocket server
+    const ws = new WebSocket("ws://localhost:3001");
+
+    ws.onmessage = (event) => {
+      const newData = JSON.parse(event.data);
+      setRealtimeData(newData);
+    };
+
+    // Cleanup on unmount
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  /*
+  useEffect(() => {
+    // Mock realtimeData
     setInterval(() => {
       let timestamp = new Date().toISOString();
-      setRealtimeData([
-        {
-          device: "Home",
-          temperature: Math.random(),
-          humidity: Math.random(),
-          timestamp,
-        },
-        {
-          device: "Greenhouse",
-          temperature: Math.random(),
-          humidity: Math.random(),
-          timestamp,
-        },
-        {
-          device: "Warehouse",
-          temperature: Math.random(),
-          humidity: Math.random(),
-          timestamp,
-        },
-      ]);
-    }, 1500);
+      setRealtimeData({
+        temperature: Math.random(),
+        humidity: Math.random(),
+        moisture: Math.random(),
+        timestamp,
+      });
+      // setRealtimeData([
+      //   {
+      //     device: "Home",
+      //     temperature: Math.random(),
+      //     humidity: Math.random(),
+      //     moisture: Math.random(),
+      //     timestamp,
+      //   },
+      //   {
+      //     device: "Greenhouse",
+      //     temperature: Math.random(),
+      //     humidity: Math.random(),
+      //     moisture: Math.random(),
+      //     timestamp,
+      //   },
+      //   {
+      //     device: "Warehouse",
+      //     temperature: Math.random(),
+      //     humidity: Math.random(),
+      //     moisture: Math.random(),
+      //     timestamp,
+      //   },
+      // ]);
+    }, 5000);
   }, []);
+  */
+
   return (
     <>
       <ThemeContext.Provider value={theme}>

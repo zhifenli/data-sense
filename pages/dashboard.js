@@ -9,6 +9,12 @@ import Link from "next/link";
 import DownloadImg from "@/public/assets/images/download.webp";
 import FavouriteImg from "@/public/assets/images/favourite.gif";
 
+/**
+ * FE on history page: do GET ALL []  => 10005
+ * BE push latest data to FE via socket, then FE display it and push to array
+ * @returns
+ *
+ */
 export default function Dashboard() {
   const realtimeData = useContext(RealtimeDataContext);
   const items = [
@@ -82,13 +88,14 @@ export default function Dashboard() {
               icon={<i class="fa-sharp fa-solid fa-eye"></i>}
             >
               <ul>
-                {realtimeData?.map(
-                  ({ device, temperature, humidity, timestamp }) => (
-                    <ExpandableItem title={device} key={device}>
+                {[realtimeData]?.map(
+                  ({ device, temperature, humidity, moisture, timestamp }) => (
+                    <ExpandableItem title={device || "Home"} key={device}>
                       <ul>
                         <li>Date: {timestamp}</li>
                         <li>Temperature: {temperature}</li>
                         <li>Humidity: {humidity}</li>
+                        <li>Moisture: {moisture}</li>
                       </ul>
                     </ExpandableItem>
                   )

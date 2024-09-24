@@ -15,17 +15,20 @@ export default function History({ data }) {
   }, []);
 
   return (
-    <div>
-      <table>
+    <div
+      className="container table-responsive "
+      style={{ maxWidth: "900px", margin: "0 auto", padding: "20px" }}
+    >
+      <table class="table align-middle boder-none">
         <thead>
           <tr>
-            <th>Timestamp</th>
-            <th>Temperature</th>
-            <th>Humidity</th>
-            <th>Moisture</th>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Temperature</th>
+            <th scope="col">Humidity</th>
+            <th scope="col">Moisture</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="boder-white">
           {localData?.slice(-15)?.map((row, index) => {
             return (
               <tr key={index}>

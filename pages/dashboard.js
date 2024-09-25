@@ -7,7 +7,8 @@ import SimpleItem from "@/components/Item/SimpleItem";
 import Link from "next/link";
 
 import DownloadImg from "@/public/assets/images/download.webp";
-import FavouriteImg from "@/public/assets/images/favourite.gif";
+import DeviceImage from "@/public/assets/images/device.webp";
+import DtaImage from "@/public/assets/images/data.webp";
 
 /**
  * FE on history page: do GET ALL []  => 10005
@@ -26,14 +27,14 @@ export default function Dashboard() {
       icon: <i className="far fa-plus-square"></i>,
     },
     {
-      src: DownloadImg,
+      src: DeviceImage,
       name: "Your Devices",
       link: "#",
       buttonText: "Your Devices",
       icon: <i className="fas fa-laptop me-2"></i>,
     },
     {
-      src: DownloadImg,
+      src: DtaImage,
       name: "Your Data",
       link: "#",
       buttonText: "Your Data",

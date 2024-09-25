@@ -1,6 +1,7 @@
 import Navbar from "./navbar";
 import Footer from "./footer";
 import { createContext, useContext, useEffect, useState } from "react";
+import config from "@/pages/api/config.json";
 
 // import "bootstrap/dist/css/bootstrap.min.css";
 export const RealtimeDataContext = createContext(null);
@@ -12,7 +13,7 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     // Connect to the WebSocket server
-    const ws = new WebSocket("ws://localhost:8080");
+    const ws = new WebSocket(config.ws_api);
 
     ws.onmessage = (event) => {
       const newData = JSON.parse(event.data);

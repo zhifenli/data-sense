@@ -1,3 +1,5 @@
+import config from "./config.json";
+
 export default function handler(req, res) {
   res.status(200).json({ name: "John Doe" });
 }
@@ -5,7 +7,7 @@ export default function handler(req, res) {
 export async function getSensorHistoryData() {
   try {
     // Fetch data from your backend API
-    const response = await fetch("http://localhost:8080/sensor-data");
+    const response = await fetch(`${config.server_api}/sensor-data`);
 
     if (!response.ok) {
       throw new Error("Failed to fetch sensor data");

@@ -19,9 +19,9 @@ export default function ExpandableItem({ title, children }) {
         <span>{title}</span>
         <span>
           {expanded ? (
-            <i class="fa-solid fa-minus"></i>
+            <i className="fa-solid fa-minus"></i>
           ) : (
-            <i class="fa-solid fa-plus"></i>
+            <i className="fa-solid fa-plus"></i>
           )}
         </span>
       </h3>

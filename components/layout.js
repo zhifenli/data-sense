@@ -7,15 +7,16 @@ export const RealtimeDataContext = createContext(null);
 export const ThemeContext = createContext(null);
 
 const Layout = ({ children }) => {
-  const [realtimeData, setRealtimeData] = useState([]);
+  const [realtimeData, setRealtimeData] = useState(null);
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     // Connect to the WebSocket server
-    const ws = new WebSocket("ws://localhost:3001");
+    const ws = new WebSocket("ws://localhost:8080");
 
     ws.onmessage = (event) => {
       const newData = JSON.parse(event.data);
+      console.log("Received realtim data", newData);
       setRealtimeData(newData);
     };
 
@@ -24,44 +25,6 @@ const Layout = ({ children }) => {
       ws.close();
     };
   }, []);
-
-  /*
-  useEffect(() => {
-    // Mock realtimeData
-    setInterval(() => {
-      let timestamp = new Date().toISOString();
-      setRealtimeData({
-        temperature: Math.random(),
-        humidity: Math.random(),
-        moisture: Math.random(),
-        timestamp,
-      });
-      // setRealtimeData([
-      //   {
-      //     device: "Home",
-      //     temperature: Math.random(),
-      //     humidity: Math.random(),
-      //     moisture: Math.random(),
-      //     timestamp,
-      //   },
-      //   {
-      //     device: "Greenhouse",
-      //     temperature: Math.random(),
-      //     humidity: Math.random(),
-      //     moisture: Math.random(),
-      //     timestamp,
-      //   },
-      //   {
-      //     device: "Warehouse",
-      //     temperature: Math.random(),
-      //     humidity: Math.random(),
-      //     moisture: Math.random(),
-      //     timestamp,
-      //   },
-      // ]);
-    }, 5000);
-  }, []);
-  */
 
   return (
     <>

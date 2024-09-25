@@ -54,7 +54,7 @@ export default function Dashboard() {
               className={"mb-3"}
               key={"Favourites"}
               title={"Favourites"}
-              icon={<i class="fa-solid fa-star"></i>}
+              icon={<i className="fa-solid fa-star"></i>}
             >
               <ul>
                 <li
@@ -75,7 +75,7 @@ export default function Dashboard() {
                       }}
                     >
                       Warehouse
-                      <i class="fa-solid fa-square-up-right"></i>
+                      <i className="fa-solid fa-square-up-right"></i>
                     </Link>
                   </h3>
                 </li>
@@ -85,20 +85,20 @@ export default function Dashboard() {
             <SimpleItem
               key={"Quick View"}
               title={"Quick View"}
-              icon={<i class="fa-sharp fa-solid fa-eye"></i>}
+              icon={<i className="fa-sharp fa-solid fa-eye"></i>}
             >
               <ul>
-                {[realtimeData]?.map(
-                  ({ device, temperature, humidity, moisture, timestamp }) => (
-                    <ExpandableItem title={device || "Home"} key={device}>
-                      <ul>
-                        <li>Date: {timestamp}</li>
-                        <li>Temperature: {temperature}</li>
-                        <li>Humidity: {humidity}</li>
-                        <li>Moisture: {moisture}</li>
-                      </ul>
-                    </ExpandableItem>
-                  )
+                {realtimeData && (
+                  <ExpandableItem title={realtimeData.device || "Home"}>
+                    <ul>
+                      <li key="date">Date: {realtimeData.timestamp}</li>
+                      <li key="temp">
+                        Temperature: {realtimeData.temperature}
+                      </li>
+                      <li key="humi">Humidity: {realtimeData.humidity}</li>
+                      <li key="mois">Moisture: {realtimeData.moisture}</li>
+                    </ul>
+                  </ExpandableItem>
                 )}
               </ul>
             </SimpleItem>

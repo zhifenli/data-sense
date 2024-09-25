@@ -3,29 +3,31 @@ import { useContext, useEffect, useState } from "react";
 import { getSensorHistoryData } from "./api/sensor";
 
 // with socket
-export default function History1({ data }) {
+export default function Data({ data }) {
   const [localData, setLocalData] = useState(data);
 
   const realtimeData = useContext(RealtimeDataContext);
 
   useEffect(() => {
-    setLocalData((prev) => {
-      return [...prev, realtimeData];
-    });
+    if (realtimeData) {
+      setLocalData((prev) => {
+        return [...prev, realtimeData];
+      });
+    }
   }, [realtimeData]);
-
+  // console.log("data", localData);
   return (
     <div
       className="container table-responsive "
       style={{ maxWidth: "900px", margin: "0 auto", padding: "20px" }}
     >
-      <table class="table align-middle boder-none">
+      <table className="table align-middle boder-none">
         <thead>
           <tr>
-            <th scope="col">Timestamp</th>
-            <th scope="col">Temperature</th>
-            <th scope="col">Humidity</th>
-            <th scope="col">Moisture</th>
+            <th>Timestamp</th>
+            <th>Temperature</th>
+            <th>Humidity</th>
+            <th>Moisture</th>
           </tr>
         </thead>
         <tbody className="boder-white">

@@ -1,3 +1,5 @@
+import { useSession, signIn } from "next-auth/react";
+
 import { Card, Form, Alert, Button } from "react-bootstrap";
 import { authenticateUser } from "@/lib/authenticate";
 import { useState, useEffect } from "react";
@@ -7,40 +9,51 @@ import { useAtom } from "jotai";
 import Image from "next/image"; // Corrected import for Image component
 
 export default function Login(props) {
-  const [historyList, setSearchHistory] = useAtom(searchHistoryAtom);
+  const { data, status } = useSession();
+  console.log({ data, status });
+
+  // const [historyList, setSearchHistory] = useAtom(searchHistoryAtom);
 
   const [warning, setWarning] = useState("");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  async function updateAtoms() {
-    // setSearchHistory(await getHistory());
-  }
+  // async function updateAtoms() {
+  //   // setSearchHistory(await getHistory());
+  // }
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log("login with email/password is not implemented!");
+    // try {
+    //   await authenticateUser(user, password);
+    //   console.log("1");
 
-    try {
-      await authenticateUser(user, password);
-      console.log("1");
+    //   await updateAtoms();
+    //   console.log("2");
 
-      await updateAtoms();
-      console.log("2");
-
-      router.push("/dashboard");
-    } catch (err) {
-      setWarning(err.message);
-    }
+    //   router.push("/dashboard");
+    // } catch (err) {
+    //   setWarning(err.message);
+    // }
   }
 
-  const handleGoogleLogIn = async () => {
-    try {
-      await signInWithPopup(auth, provider);
-      router.push("/dashboard"); // Redirect to dashboard after successful login
-    } catch (error) {
-      setWarning(error.message); // Corrected the error handling function name
+  // const handleGoogleLogIn = async () => {
+  //   try {
+  //     // await signInWithPopup(auth, provider);
+  //     const res = await signIn("google");
+  //     console.log("###", res);
+  //     // router.push("/dashboard"); // Redirect to dashboard after successful login
+  //   } catch (error) {
+  //     setWarning(error.message); // Corrected the error handling function name
+  //   }
+  // };
+  useEffect(() => {
+    if (status === "authenticated" && data) {
+      console.log({ data });
+      router.push("/dashboard");
     }
-  };
+  }, [data, status]);
 
   return (
     <>
@@ -95,7 +108,7 @@ export default function Login(props) {
         </Form>
         <hr />
         <button
-          onClick={handleGoogleLogIn}
+          onClick={() => signIn("google")}
           className="border border-primary rounded-3 bg-transparent p-2"
         >
           <Image

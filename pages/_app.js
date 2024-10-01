@@ -1,3 +1,4 @@
+import { SessionProvider } from "next-auth/react";
 import Layout from "@/components/layout";
 import "@/styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css"; // Bootstrap CSS
@@ -12,8 +13,10 @@ export default function App({ Component, pageProps }) {
   }, []); // Only run once on mount
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <SessionProvider session={pageProps.session}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </SessionProvider>
   );
 }

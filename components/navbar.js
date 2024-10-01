@@ -3,14 +3,20 @@ import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css"; // Import Font Awesome CSS
 import Script from "next/script";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: sessionData, status: sessionStatus } = useSession();
 
+  console.log({ sessionData, sessionStatus });
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         {/* Hamburger Icon moved to the left */}
+        {sessionData && (
+          <button onClick={() => signOut("google")}>Log out</button>
+        )}
         <button
           className="navbar-toggler order-0"
           type="button"
@@ -29,7 +35,7 @@ const Navbar = () => {
           <ul className="navbar-nav flex-row">
             <li className="nav-item me-1">
               <Link href="/login" className="nav-link">
-                <i className="fas fa-user me-1"></i> User Name
+                <i className="fas fa-user me-1"></i> {sessionData?.user.name}
               </Link>
             </li>
           </ul>
